@@ -6,6 +6,7 @@ import book.02-pi
 open book.02-pi public
 
 --------------------------------------------------------------------------------
+--Revised by James Squires (2026)
 
 -- Section 3.1 The formal specification of the type of natural numbers
 
@@ -76,25 +77,30 @@ twenty-ℕ : ℕ
 twenty-ℕ = succ-ℕ nineteen-ℕ
 
 -- Remark 3.1.2
-
 ind-ℕ : {i : Level} {P : ℕ → UU i} → P zero-ℕ → ((n : ℕ) → P n → P(succ-ℕ n)) → ((n : ℕ) → P n)
-ind-ℕ p0 pS zero-ℕ = p0
-ind-ℕ p0 pS (succ-ℕ n) = pS n (ind-ℕ p0 pS n)
+ind-ℕ p0 pS zero-ℕ = p0 -- Computation base case
+ind-ℕ p0 pS (succ-ℕ n) = pS n (ind-ℕ p0 pS n) -- Computation induction
 
 --------------------------------------------------------------------------------
 
 -- Section 3.2 Addition on the natural numbers
 
--- Definition 3.2.1
+-- Definition 3.2.1 with computation rules
+add-ℕ : ℕ → (ℕ → ℕ)
+add-ℕ m zero-ℕ = m
+add-ℕ m (succ-ℕ n) = succ-ℕ (add-ℕ m n)
 
-add-ℕ : ℕ → ℕ → ℕ
-add-ℕ x zero-ℕ = x
-add-ℕ x (succ-ℕ y) = succ-ℕ (add-ℕ x y)
+--Remark 3.2.2 on addition operator
+add-zeroℕ : ℕ → ℕ
+add-zeroℕ m = m
 
-add-ℕ' : ℕ → ℕ → ℕ
-add-ℕ' m n = add-ℕ n m
-
+add-succℕ : ℕ → (ℕ → ℕ) → (ℕ → ℕ)
+add-succℕ m f n = succ-ℕ (f n) -- f is the induction hypothesis
 --------------------------------------------------------------------------------
+
+--BONUS TEST
+two-plus-two : add-ℕ two-ℕ two-ℕ ≡ four-ℕ
+two-plus-two = refl
 
 -- Exercises
 

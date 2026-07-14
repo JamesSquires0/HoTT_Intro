@@ -6,6 +6,7 @@ import book.00-preamble
 open book.00-preamble public
 
 --------------------------------------------------------------------------------
+--Revised by James Squires (2026)
 
 --id_A type
 id : {i : Level} {A : UU i} → A → A
