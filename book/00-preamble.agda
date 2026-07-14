@@ -10,6 +10,9 @@ UU i = Set i
 data raise (l : Level) {l1 : Level} (A : UU l1) : UU (l1 ⊔ l) where
   map-raise : A → raise l A
 
+data _≡_ {i : Level} {A : UU i} (a : A) : A → UU i where
+  refl : a ≡ a
+  
 map-inv-raise :
   {l l1 : Level} {A : UU l1} → raise l A → A
 map-inv-raise (map-raise x) = x
