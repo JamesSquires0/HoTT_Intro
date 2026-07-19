@@ -3,3 +3,4 @@ Personally going through the Intro to HoTT and editing/revising the original cod
 Current edits:
 <br>
 Chapter 2
+Chapter 3
