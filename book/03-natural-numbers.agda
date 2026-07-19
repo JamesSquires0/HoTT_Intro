@@ -95,42 +95,39 @@ add-zeroℕ : ℕ → ℕ
 add-zeroℕ m = m
 
 add-succℕ : ℕ → (ℕ → ℕ) → (ℕ → ℕ)
-add-succℕ m f n = succ-ℕ (f n) -- f is the induction hypothesis
+add-succℕ = λ m f n → succ-ℕ (f n) -- f is the induction hypothesis
 --------------------------------------------------------------------------------
 
 --BONUS TEST
 two-plus-two : add-ℕ two-ℕ two-ℕ ≡ four-ℕ
 two-plus-two = refl
 
--- Exercises
-
--- Exercise 3.1
-
+-- Exercise 3.1 (a)
 mul-ℕ : ℕ → (ℕ → ℕ)
-mul-ℕ zero-ℕ n = zero-ℕ
-mul-ℕ (succ-ℕ m) n = add-ℕ (mul-ℕ m n) n
+mul-ℕ m zero-ℕ = zero-ℕ
+mul-ℕ m (succ-ℕ n) = add-ℕ m (mul-ℕ m n)
 
-mul-ℕ' : ℕ → (ℕ → ℕ)
-mul-ℕ' x y = mul-ℕ y x
+--TEST
+two-times-one : mul-ℕ two-ℕ one-ℕ ≡ two-ℕ
+two-times-one = refl
 
+two-times-two : mul-ℕ two-ℕ two-ℕ ≡ four-ℕ
+two-times-two = refl
+
+-- Exercise 3.1 (b)
 exp-ℕ : ℕ → (ℕ → ℕ)
 exp-ℕ m zero-ℕ = one-ℕ
-exp-ℕ m (succ-ℕ n) = mul-ℕ (exp-ℕ m n) m
+exp-ℕ m (succ-ℕ n) = (mul-ℕ (exp-ℕ m n) m)
 
-double-ℕ : ℕ → ℕ
-double-ℕ x = mul-ℕ two-ℕ x
+--TEST
+two-exp-one : exp-ℕ two-ℕ one-ℕ ≡ two-ℕ
+two-exp-one = refl
 
-triple-ℕ : ℕ → ℕ
-triple-ℕ x = mul-ℕ three-ℕ x
+two-exp-four : exp-ℕ two-ℕ four-ℕ ≡ sixteen-ℕ
+two-exp-four = refl
 
-square-ℕ : ℕ → ℕ
-square-ℕ x = mul-ℕ x x
-
-cube-ℕ : ℕ → ℕ
-cube-ℕ x = mul-ℕ (square-ℕ x) x
-
+---------------------------------------------
 -- Exercise 3.2
-
 min-ℕ : ℕ → (ℕ → ℕ)
 min-ℕ zero-ℕ n = zero-ℕ
 min-ℕ (succ-ℕ m) zero-ℕ = zero-ℕ
