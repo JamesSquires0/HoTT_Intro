@@ -126,28 +126,47 @@ two-exp-one = refl
 two-exp-four : exp-ℕ two-ℕ four-ℕ ≡ sixteen-ℕ
 two-exp-four = refl
 
----------------------------------------------
 -- Exercise 3.2
-min-ℕ : ℕ → (ℕ → ℕ)
-min-ℕ zero-ℕ n = zero-ℕ
-min-ℕ (succ-ℕ m) zero-ℕ = zero-ℕ
-min-ℕ (succ-ℕ m) (succ-ℕ n) = succ-ℕ (min-ℕ m n)
-
+-- Max
+-- Think nested induction, we eliminate the right side with the first clause, then we perform pattern matching for the left-side with the 2nd and 3rd clauses
 max-ℕ : ℕ → (ℕ → ℕ)
-max-ℕ zero-ℕ n = n
-max-ℕ (succ-ℕ m) zero-ℕ = succ-ℕ m
+max-ℕ zero-ℕ m = m
+max-ℕ (succ-ℕ m) zero-ℕ  = succ-ℕ m
 max-ℕ (succ-ℕ m) (succ-ℕ n) = succ-ℕ (max-ℕ m n)
 
+-- TEST
+max-three-seven : max-ℕ three-ℕ seven-ℕ ≡ seven-ℕ
+max-three-seven = refl
+
+-- Min
+min-ℕ : ℕ → (ℕ → ℕ)
+min-ℕ zero-ℕ m = zero-ℕ
+min-ℕ (succ-ℕ n) zero-ℕ = zero-ℕ
+min-ℕ (succ-ℕ n) (succ-ℕ m) = succ-ℕ (min-ℕ m n)
+
+two-min-five : min-ℕ two-ℕ five-ℕ ≡ two-ℕ
+two-min-five = refl
+
 -- Exercise 3.3
+-- (a)
+triangle-number-ℕ : ℕ → ℕ
+triangle-number-ℕ zero-ℕ = zero-ℕ
+triangle-number-ℕ (succ-ℕ n) = add-ℕ (triangle-number-ℕ n) (succ-ℕ n)
 
-triangular-number-ℕ : ℕ → ℕ
-triangular-number-ℕ zero-ℕ = zero-ℕ
-triangular-number-ℕ (succ-ℕ n) = add-ℕ (triangular-number-ℕ n) (succ-ℕ n)
+-- Test
+triangle-four : triangle-number-ℕ four-ℕ ≡ ten-ℕ
+triangle-four = refl
 
-factorial-ℕ : ℕ → ℕ
-factorial-ℕ zero-ℕ = one-ℕ
-factorial-ℕ (succ-ℕ m) = mul-ℕ (factorial-ℕ m) (succ-ℕ m)
+-- (b)
+factorial : ℕ → ℕ
+factorial zero-ℕ = one-ℕ
+factorial (succ-ℕ n) = mul-ℕ (factorial n) (succ-ℕ n)
 
+-- Test
+three-factorial : factorial three-ℕ ≡ six-ℕ
+three-factorial = refl
+
+-------------------------------------------
 -- Exercise 3.4
 
 _choose-ℕ_ : ℕ → ℕ → ℕ
